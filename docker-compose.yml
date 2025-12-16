@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: climate_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml/models:/app/ml/models
+      - ./data:/app/data
+    environment:
+      - PREFECT_API_URL=http://localhost:4200/api # Optional if using local server
+    restart: always

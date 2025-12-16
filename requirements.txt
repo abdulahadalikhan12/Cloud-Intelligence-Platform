@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+statsmodels
+prefect
+requests
+openmeteo-requests
+requests-cache
+retry-requests
+deepchecks
+pytest
+httpx
+pydantic
+python-dotenv
+xgboost
