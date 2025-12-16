@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from app.main import app
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 client = TestClient(app)
 
@@ -18,8 +18,27 @@ def test_get_current_weather(mock_weather_api):
     response = client.get("/weather/current?city=InvalidCity")
     assert response.status_code == 404
 
-def test_predict_pollution_no_model():
-    # Expect 503 if models aren't trained yet
+@patch("app.routers.predict.load_model")
+def test_predict_pollution(mock_load_model):
+    # Mock the model and scaler
+    mock_model = MagicMock()
+    mock_model.predict.return_value = [15.5]
+    
+    mock_scaler = MagicMock()
+    mock_scaler.transform.return_value = [[0, 0, 0, 0, 0, 0, 0]]
+    
+    # load_model maps filename to object. We can use side_effect or just return a mock that works for both
+    # Simpler: side_effect based on name
+    def side_effect(name):
+        if "scaler" in name: return mock_scaler
+        if "label_encoder" in name: 
+            enc = MagicMock()
+            enc.inverse_transform.return_value = ["Good"]
+            return enc
+        return mock_model
+        
+    mock_load_model.side_effect = side_effect
+
     payload = {
         "temperature": 25.0,
         "humidity": 50.0,
@@ -29,8 +48,8 @@ def test_predict_pollution_no_model():
         "month": 6,
         "hour": 12
     }
+    
     response = client.post("/predict/pollution", json=payload)
-    # It will be either 200 (if I trained) or 503 (if not)
-    # Since we strictly haven't trained in this env yet (pip running), it should be 503
-    # unless models dir checks are passed.
-    assert response.status_code in [200, 503]
+    assert response.status_code == 200
+    assert "predicted_pm25" in response.json()
+    assert response.json()["predicted_pm25"] == 15.5
