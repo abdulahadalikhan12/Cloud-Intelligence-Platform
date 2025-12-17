@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-// Vite proxy forwards /weather, /predict to http://127.0.0.1:8000
+// In Vercel, the backend is rewritten to /api
+// In local dev, Vite proxy forwards /weather etc directly to backend
+// Let's settle on a consistent prefix '/api' and proxy it in dev.
 const api = axios.create({
-    baseURL: '/',
+    baseURL: import.meta.env.VITE_API_URL || '/api',
     timeout: 10000,
 });
 

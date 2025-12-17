@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+statsmodels
+requests
+openmeteo-requests
+requests-cache
+retry-requests
+httpx
+pydantic
+python-dotenv
+xgboost

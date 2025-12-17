@@ -6,10 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/weather': 'http://127.0.0.1:8000',
-      '/predict': 'http://127.0.0.1:8000',
-      '/forecast': 'http://127.0.0.1:8000',
-      '/cluster': 'http://127.0.0.1:8000',
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '') // Standard proxy rewrite
+      }
     }
   }
 })
