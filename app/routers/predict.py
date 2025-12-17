@@ -18,7 +18,7 @@ def load_model(name):
 
 @router.post("/air-quality", response_model=AirQualityPrediction)
 def predict_air_quality(req: PredictionRequest):
-    model = load_model("risk_random_forest.pkl")
+    model = load_model("risk_xgboost.pkl")
     encoder = load_model("classification_label_encoder.pkl")
     scaler = load_model("classification_scaler.pkl")
     
@@ -38,7 +38,7 @@ def predict_air_quality(req: PredictionRequest):
 
 @router.post("/pollution", response_model=PollutionPrediction)
 def predict_pollution(req: PredictionRequest):
-    model = load_model("pollution_random_forest.pkl")
+    model = load_model("pollution_xgboost.pkl")
     scaler = load_model("regression_scaler.pkl")
     
     if not model or not scaler:
