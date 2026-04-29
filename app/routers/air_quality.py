@@ -15,7 +15,9 @@ async def get_current_aq(city: str):
     if not city_info:
         raise HTTPException(status_code=404, detail=f"City not found: {city}")
     return await air_quality_service.get_current_air_quality(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon,
+        city=city_info.name,
+        lat=city_info.lat,
+        lon=city_info.lon,
     )
 
 
@@ -26,7 +28,10 @@ async def get_aq_forecast(city: str, days: int = 5):
     if not city_info:
         raise HTTPException(status_code=404, detail=f"City not found: {city}")
     return await air_quality_service.get_aq_forecast(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon, days=days,
+        city=city_info.name,
+        lat=city_info.lat,
+        lon=city_info.lon,
+        days=days,
     )
 
 

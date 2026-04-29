@@ -104,11 +104,19 @@ CLUSTER_INFO = {
 }
 
 
-def predict_aqi_risk(temperature: float, humidity: float, rain: float,
-                     pressure: float, wind_speed: float, month: int, hour: int) -> AQIRiskPrediction:
+def predict_aqi_risk(
+    temperature: float, humidity: float, rain: float, pressure: float, wind_speed: float, month: int, hour: int
+) -> AQIRiskPrediction:
     """Predict AQI risk category using the trained classifier."""
-    features = {"temperature": temperature, "humidity": humidity, "rain": rain,
-                "pressure": pressure, "wind_speed": wind_speed, "month": month, "hour": hour}
+    features = {
+        "temperature": temperature,
+        "humidity": humidity,
+        "rain": rain,
+        "pressure": pressure,
+        "wind_speed": wind_speed,
+        "month": month,
+        "hour": hour,
+    }
 
     if "risk_classifier" not in _models:
         # Fallback: rule-based estimation
@@ -137,11 +145,19 @@ def predict_aqi_risk(temperature: float, humidity: float, rain: float,
     )
 
 
-def predict_pollution(temperature: float, humidity: float, rain: float,
-                      pressure: float, wind_speed: float, month: int, hour: int) -> PollutionPrediction:
+def predict_pollution(
+    temperature: float, humidity: float, rain: float, pressure: float, wind_speed: float, month: int, hour: int
+) -> PollutionPrediction:
     """Predict PM2.5 concentration using the trained regressor."""
-    features = {"temperature": temperature, "humidity": humidity, "rain": rain,
-                "pressure": pressure, "wind_speed": wind_speed, "month": month, "hour": hour}
+    features = {
+        "temperature": temperature,
+        "humidity": humidity,
+        "rain": rain,
+        "pressure": pressure,
+        "wind_speed": wind_speed,
+        "month": month,
+        "hour": hour,
+    }
 
     if "pollution_regressor" not in _models:
         # Fallback: simple estimation

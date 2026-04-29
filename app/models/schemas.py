@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 # Enums
 # ──────────────────────────────────────────────
 
+
 class AQICategory(str, Enum):
     GOOD = "Good"
     MODERATE = "Moderate"
@@ -39,14 +40,17 @@ class Season(str, Enum):
 # Geo & City Models
 # ──────────────────────────────────────────────
 
+
 class GeoPoint(BaseModel):
     """Geographic coordinate point."""
+
     lat: float = Field(..., ge=-90, le=90, description="Latitude")
     lon: float = Field(..., ge=-180, le=180, description="Longitude")
 
 
 class CityInfo(BaseModel):
     """City information with geographic data."""
+
     name: str
     country: str
     lat: float
@@ -58,6 +62,7 @@ class CityInfo(BaseModel):
 
 class CitySearchResult(BaseModel):
     """Result from a city search query."""
+
     cities: list[CityInfo]
     total: int
     query: str
@@ -65,6 +70,7 @@ class CitySearchResult(BaseModel):
 
 class NearbyQuery(BaseModel):
     """Query for finding nearby cities."""
+
     lat: float = Field(..., ge=-90, le=90)
     lon: float = Field(..., ge=-180, le=180)
     radius_km: float = Field(default=100, ge=1, le=5000)
@@ -74,8 +80,10 @@ class NearbyQuery(BaseModel):
 # Weather Models
 # ──────────────────────────────────────────────
 
+
 class WeatherCurrent(BaseModel):
     """Current weather conditions for a location."""
+
     city: str
     country: Optional[str] = None
     lat: float
@@ -94,6 +102,7 @@ class WeatherCurrent(BaseModel):
 
 class ForecastDay(BaseModel):
     """Single day forecast data."""
+
     date: str
     temp_max_c: float
     temp_min_c: float
@@ -107,6 +116,7 @@ class ForecastDay(BaseModel):
 
 class WeatherForecast(BaseModel):
     """Multi-day weather forecast."""
+
     city: str
     lat: float
     lon: float
@@ -116,6 +126,7 @@ class WeatherForecast(BaseModel):
 
 class HistoricalWeather(BaseModel):
     """Historical weather data point."""
+
     date: str
     temperature_c: float
     humidity_pct: float
@@ -126,6 +137,7 @@ class HistoricalWeather(BaseModel):
 
 class WeatherHistory(BaseModel):
     """Historical weather data response."""
+
     city: str
     lat: float
     lon: float
@@ -138,8 +150,10 @@ class WeatherHistory(BaseModel):
 # Air Quality Models
 # ──────────────────────────────────────────────
 
+
 class AirQualityCurrent(BaseModel):
     """Current air quality data."""
+
     city: str
     lat: float
     lon: float
@@ -155,6 +169,7 @@ class AirQualityCurrent(BaseModel):
 
 class AQForecastDay(BaseModel):
     """Single day AQ forecast."""
+
     date: str
     aqi_avg: int
     aqi_max: int
@@ -165,6 +180,7 @@ class AQForecastDay(BaseModel):
 
 class AirQualityForecast(BaseModel):
     """Air quality forecast response."""
+
     city: str
     lat: float
     lon: float
@@ -174,6 +190,7 @@ class AirQualityForecast(BaseModel):
 
 class CityRanking(BaseModel):
     """City ranked by air quality."""
+
     rank: int
     city: str
     country: str
@@ -186,6 +203,7 @@ class CityRanking(BaseModel):
 
 class AQRankings(BaseModel):
     """Air quality rankings response."""
+
     cleanest: list[CityRanking]
     most_polluted: list[CityRanking]
     generated_at: datetime
@@ -195,8 +213,10 @@ class AQRankings(BaseModel):
 # Prediction Models
 # ──────────────────────────────────────────────
 
+
 class PredictionRequest(BaseModel):
     """Input features for ML prediction."""
+
     temperature: float = Field(..., description="Temperature in °C")
     humidity: float = Field(..., ge=0, le=100, description="Relative humidity %")
     rain: float = Field(..., ge=0, description="Rainfall in mm")
@@ -208,6 +228,7 @@ class PredictionRequest(BaseModel):
 
 class AQIRiskPrediction(BaseModel):
     """AQI risk classification result."""
+
     aqi_category: str
     confidence: float = Field(..., ge=0, le=1)
     risk_level: RiskLevel
@@ -216,6 +237,7 @@ class AQIRiskPrediction(BaseModel):
 
 class PollutionPrediction(BaseModel):
     """PM2.5 regression prediction result."""
+
     predicted_pm25: float
     risk_level: RiskLevel
     features_used: dict
@@ -223,6 +245,7 @@ class PollutionPrediction(BaseModel):
 
 class ClusterRequest(BaseModel):
     """Input for city clustering."""
+
     temperature: float
     humidity: float
     rain: float
@@ -231,6 +254,7 @@ class ClusterRequest(BaseModel):
 
 class ClusterResult(BaseModel):
     """City cluster assignment result."""
+
     cluster_id: int
     cluster_name: str
     cluster_description: str
@@ -239,6 +263,7 @@ class ClusterResult(BaseModel):
 
 class ClusterAnalysis(BaseModel):
     """Full clustering visualization data."""
+
     clusters: list[dict]
     city_assignments: list[dict]
     silhouette_score: Optional[float] = None
@@ -248,8 +273,10 @@ class ClusterAnalysis(BaseModel):
 # Agent Models
 # ──────────────────────────────────────────────
 
+
 class CityDataPacket(BaseModel):
     """Normalized data packet from ingestion agent."""
+
     city: CityInfo
     weather: WeatherCurrent
     air_quality: AirQualityCurrent
@@ -258,6 +285,7 @@ class CityDataPacket(BaseModel):
 
 class AnalysisInsight(BaseModel):
     """Single insight generated by analysis agent."""
+
     category: str  # "weather", "air_quality", "trend", "anomaly"
     title: str
     description: str
@@ -267,6 +295,7 @@ class AnalysisInsight(BaseModel):
 
 class AnalysisResult(BaseModel):
     """Complete analysis from analysis agent."""
+
     city: str
     aqi_prediction: AQIRiskPrediction
     pollution_prediction: PollutionPrediction
@@ -277,6 +306,7 @@ class AnalysisResult(BaseModel):
 
 class Recommendation(BaseModel):
     """Single actionable recommendation."""
+
     category: str  # "health", "travel", "environment", "alert"
     title: str
     description: str
@@ -286,6 +316,7 @@ class Recommendation(BaseModel):
 
 class RecommendationReport(BaseModel):
     """Full recommendation report from recommendation agent."""
+
     city: str
     recommendations: list[Recommendation]
     health_advisory: str
@@ -297,6 +328,7 @@ class RecommendationReport(BaseModel):
 
 class IntelligenceReport(BaseModel):
     """Complete intelligence report — final output of agent pipeline."""
+
     city: str
     country: Optional[str] = None
     lat: float
@@ -310,6 +342,7 @@ class IntelligenceReport(BaseModel):
 
 class CityComparison(BaseModel):
     """Multi-city comparison response."""
+
     cities: list[IntelligenceReport]
     summary: str
     best_overall: str
@@ -318,12 +351,14 @@ class CityComparison(BaseModel):
 
 class SemanticSearchQuery(BaseModel):
     """Semantic search input."""
+
     query: str = Field(..., min_length=3, max_length=500, description="Natural language query")
     top_k: int = Field(default=5, ge=1, le=20)
 
 
 class SemanticSearchResult(BaseModel):
     """Single semantic search result."""
+
     city: str
     country: str
     lat: float
@@ -334,6 +369,7 @@ class SemanticSearchResult(BaseModel):
 
 class SemanticSearchResponse(BaseModel):
     """Semantic search results."""
+
     query: str
     results: list[SemanticSearchResult]
     total: int
@@ -343,8 +379,10 @@ class SemanticSearchResponse(BaseModel):
 # System Models
 # ──────────────────────────────────────────────
 
+
 class HealthCheck(BaseModel):
     """Health check response."""
+
     status: str = "healthy"
     version: str
     uptime_seconds: float
@@ -352,6 +390,7 @@ class HealthCheck(BaseModel):
 
 class SystemStatus(BaseModel):
     """Detailed system status."""
+
     status: str
     version: str
     models_loaded: dict[str, bool]

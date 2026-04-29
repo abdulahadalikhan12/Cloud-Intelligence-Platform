@@ -15,7 +15,10 @@ async def get_current_weather(city: str):
     if not city_info:
         raise HTTPException(status_code=404, detail=f"City not found: {city}")
     return await weather_service.get_current_weather(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon, country=city_info.country,
+        city=city_info.name,
+        lat=city_info.lat,
+        lon=city_info.lon,
+        country=city_info.country,
     )
 
 
@@ -26,7 +29,10 @@ async def get_weather_forecast(city: str, days: int = 7):
     if not city_info:
         raise HTTPException(status_code=404, detail=f"City not found: {city}")
     return await weather_service.get_weather_forecast(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon, days=days,
+        city=city_info.name,
+        lat=city_info.lat,
+        lon=city_info.lon,
+        days=days,
     )
 
 
@@ -37,5 +43,8 @@ async def get_weather_history(city: str, days: int = 30):
     if not city_info:
         raise HTTPException(status_code=404, detail=f"City not found: {city}")
     return await weather_service.get_weather_history(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon, days=min(days, 90),
+        city=city_info.name,
+        lat=city_info.lat,
+        lon=city_info.lon,
+        days=min(days, 90),
     )

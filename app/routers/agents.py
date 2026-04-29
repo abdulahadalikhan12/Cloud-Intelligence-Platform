@@ -48,5 +48,7 @@ async def semantic_search(query: SemanticSearchQuery):
     """
     results = vector_service.semantic_search(query.query, top_k=query.top_k)
     return SemanticSearchResponse(
-        query=query.query, results=results, total=len(results),
+        query=query.query,
+        results=results,
+        total=len(results),
     )

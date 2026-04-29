@@ -102,7 +102,9 @@ async def get_current_air_quality(city: str, lat: float, lon: float) -> AirQuali
     aqi = calculate_aqi_from_pm25(pm25)
 
     result = AirQualityCurrent(
-        city=city, lat=lat, lon=lon,
+        city=city,
+        lat=lat,
+        lon=lon,
         aqi=aqi,
         category=aqi_to_category(aqi),
         pm2_5=round(pm25, 1),
@@ -142,6 +144,7 @@ async def get_aq_forecast(city: str, lat: float, lon: float, days: int = 5) -> A
 
     # Aggregate hourly → daily
     from collections import defaultdict
+
     daily_agg = defaultdict(lambda: {"pm25": [], "pm10": []})
     for i, t in enumerate(times):
         day = t[:10]
@@ -159,17 +162,21 @@ async def get_aq_forecast(city: str, lat: float, lon: float, days: int = 5) -> A
         aqi_avg = calculate_aqi_from_pm25(pm25_avg)
         aqi_max = calculate_aqi_from_pm25(pm25_max)
 
-        forecast_days.append(AQForecastDay(
-            date=day,
-            aqi_avg=aqi_avg,
-            aqi_max=aqi_max,
-            pm2_5_avg=round(pm25_avg, 1),
-            pm10_avg=round(pm10_avg, 1),
-            category=aqi_to_category(aqi_avg),
-        ))
+        forecast_days.append(
+            AQForecastDay(
+                date=day,
+                aqi_avg=aqi_avg,
+                aqi_max=aqi_max,
+                pm2_5_avg=round(pm25_avg, 1),
+                pm10_avg=round(pm10_avg, 1),
+                category=aqi_to_category(aqi_avg),
+            )
+        )
 
     result = AirQualityForecast(
-        city=city, lat=lat, lon=lon,
+        city=city,
+        lat=lat,
+        lon=lon,
         forecast_days=forecast_days,
         generated_at=datetime.now(timezone.utc),
     )
@@ -187,9 +194,7 @@ async def get_aq_rankings(cities: list[dict], top_n: int = 10) -> AQRankings:
     results = []
     for city_data in cities:
         try:
-            aq = await get_current_air_quality(
-                city_data["name"], city_data["lat"], city_data["lon"]
-            )
+            aq = await get_current_air_quality(city_data["name"], city_data["lat"], city_data["lon"])
             results.append((city_data, aq))
         except Exception:
             continue
@@ -200,16 +205,18 @@ async def get_aq_rankings(cities: list[dict], top_n: int = 10) -> AQRankings:
     def _make_ranking(items, start_rank=1):
         rankings = []
         for i, (cd, aq) in enumerate(items):
-            rankings.append(CityRanking(
-                rank=start_rank + i,
-                city=cd["name"],
-                country=cd.get("country", "Unknown"),
-                aqi=aq.aqi,
-                category=aq.category,
-                pm2_5=aq.pm2_5,
-                lat=cd["lat"],
-                lon=cd["lon"],
-            ))
+            rankings.append(
+                CityRanking(
+                    rank=start_rank + i,
+                    city=cd["name"],
+                    country=cd.get("country", "Unknown"),
+                    aqi=aq.aqi,
+                    category=aq.category,
+                    pm2_5=aq.pm2_5,
+                    lat=cd["lat"],
+                    lon=cd["lon"],
+                )
+            )
         return rankings
 
     cleanest = _make_ranking(results[:top_n], 1)

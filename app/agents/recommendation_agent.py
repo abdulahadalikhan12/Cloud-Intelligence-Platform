@@ -107,59 +107,91 @@ def generate_recommendations(data: CityDataPacket, analysis: AnalysisResult) -> 
 
     # ── Health Recommendations ──
     if aq.aqi > 150:
-        recs.append(Recommendation(
-            category="health", title="Wear a Mask Outdoors",
-            description=f"With AQI at {aq.aqi}, an N95 mask is recommended for outdoor activities.",
-            priority=RiskLevel.HIGH, icon="😷",
-        ))
+        recs.append(
+            Recommendation(
+                category="health",
+                title="Wear a Mask Outdoors",
+                description=f"With AQI at {aq.aqi}, an N95 mask is recommended for outdoor activities.",
+                priority=RiskLevel.HIGH,
+                icon="😷",
+            )
+        )
     if aq.aqi > 100:
-        recs.append(Recommendation(
-            category="health", title="Run Air Purifiers Indoors",
-            description="Keep windows closed and run HEPA air purifiers to maintain indoor air quality.",
-            priority=RiskLevel.MODERATE, icon="🌬️",
-        ))
+        recs.append(
+            Recommendation(
+                category="health",
+                title="Run Air Purifiers Indoors",
+                description="Keep windows closed and run HEPA air purifiers to maintain indoor air quality.",
+                priority=RiskLevel.MODERATE,
+                icon="🌬️",
+            )
+        )
 
     # ── Weather Recommendations ──
     if w.rain_mm > 0.5:
-        recs.append(Recommendation(
-            category="travel", title="Carry Rain Gear",
-            description=f"Rainfall of {w.rain_mm}mm detected. Bring an umbrella or waterproof jacket.",
-            priority=RiskLevel.LOW, icon="☔",
-        ))
+        recs.append(
+            Recommendation(
+                category="travel",
+                title="Carry Rain Gear",
+                description=f"Rainfall of {w.rain_mm}mm detected. Bring an umbrella or waterproof jacket.",
+                priority=RiskLevel.LOW,
+                icon="☔",
+            )
+        )
     if w.temperature_c > 35:
-        recs.append(Recommendation(
-            category="health", title="Heat Protection",
-            description="Apply sunscreen, wear light clothing, and stay in shade during peak hours.",
-            priority=RiskLevel.HIGH, icon="🌡️",
-        ))
+        recs.append(
+            Recommendation(
+                category="health",
+                title="Heat Protection",
+                description="Apply sunscreen, wear light clothing, and stay in shade during peak hours.",
+                priority=RiskLevel.HIGH,
+                icon="🌡️",
+            )
+        )
     if w.wind_speed_kmh > 40:
-        recs.append(Recommendation(
-            category="alert", title="Wind Advisory",
-            description="Secure loose outdoor items and exercise caution while driving.",
-            priority=RiskLevel.MODERATE, icon="💨",
-        ))
+        recs.append(
+            Recommendation(
+                category="alert",
+                title="Wind Advisory",
+                description="Secure loose outdoor items and exercise caution while driving.",
+                priority=RiskLevel.MODERATE,
+                icon="💨",
+            )
+        )
 
     # ── Environmental Recommendations ──
     if aq.pm2_5 > 35:
-        recs.append(Recommendation(
-            category="environment", title="Limit Driving",
-            description="Vehicle emissions contribute to PM2.5. Consider public transit or carpooling.",
-            priority=RiskLevel.MODERATE, icon="🚗",
-        ))
+        recs.append(
+            Recommendation(
+                category="environment",
+                title="Limit Driving",
+                description="Vehicle emissions contribute to PM2.5. Consider public transit or carpooling.",
+                priority=RiskLevel.MODERATE,
+                icon="🚗",
+            )
+        )
     if aq.aqi <= 50 and w.rain_mm < 1:
-        recs.append(Recommendation(
-            category="travel", title="Great Day for Outdoor Activities",
-            description="Air quality is good and weather is dry. Perfect for walking, cycling, or sightseeing.",
-            priority=RiskLevel.LOW, icon="🌟",
-        ))
+        recs.append(
+            Recommendation(
+                category="travel",
+                title="Great Day for Outdoor Activities",
+                description="Air quality is good and weather is dry. Perfect for walking, cycling, or sightseeing.",
+                priority=RiskLevel.LOW,
+                icon="🌟",
+            )
+        )
 
     # ── Travel Recommendations ──
     cluster = analysis.cluster
-    recs.append(Recommendation(
-        category="travel", title=f"City Profile: {cluster.cluster_name}",
-        description=cluster.cluster_description,
-        priority=RiskLevel.LOW, icon="🏙️",
-    ))
+    recs.append(
+        Recommendation(
+            category="travel",
+            title=f"City Profile: {cluster.cluster_name}",
+            description=cluster.cluster_description,
+            priority=RiskLevel.LOW,
+            icon="🏙️",
+        )
+    )
 
     # Calculate score and comparison
     score = _calculate_livability_score(data, analysis)

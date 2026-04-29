@@ -22,6 +22,7 @@ def _get_embedder():
     if _embedder is None:
         try:
             from sentence_transformers import SentenceTransformer
+
             _embedder = SentenceTransformer(settings.VECTOR_MODEL_NAME)
         except ImportError:
             print("Warning: sentence-transformers not installed. Semantic search disabled.")
@@ -53,13 +54,15 @@ def build_index(cities_data: list[dict]):
 
     for city in cities_data:
         doc_text = _generate_city_doc(city)
-        _city_docs.append({
-            "city": city.get("name", "Unknown"),
-            "country": city.get("country", "Unknown"),
-            "lat": city.get("lat", 0),
-            "lon": city.get("lon", 0),
-            "text": doc_text,
-        })
+        _city_docs.append(
+            {
+                "city": city.get("name", "Unknown"),
+                "country": city.get("country", "Unknown"),
+                "lat": city.get("lat", 0),
+                "lon": city.get("lon", 0),
+                "text": doc_text,
+            }
+        )
         texts.append(doc_text)
 
     if not texts:
@@ -149,14 +152,16 @@ def semantic_search(query: str, top_k: int = 5) -> list[SemanticSearchResult]:
         if idx < 0 or idx >= len(_city_docs):
             continue
         doc = _city_docs[idx]
-        results.append(SemanticSearchResult(
-            city=doc["city"],
-            country=doc["country"],
-            lat=doc["lat"],
-            lon=doc["lon"],
-            score=round(float(scores[0][i]), 4),
-            summary=doc["text"],
-        ))
+        results.append(
+            SemanticSearchResult(
+                city=doc["city"],
+                country=doc["country"],
+                lat=doc["lat"],
+                lon=doc["lon"],
+                score=round(float(scores[0][i]), 4),
+                summary=doc["text"],
+            )
+        )
 
     return results
 

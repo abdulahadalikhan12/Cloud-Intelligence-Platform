@@ -24,9 +24,7 @@ async def ingest_city_data(city_name: str) -> CityDataPacket:
     weather_task = weather_service.get_current_weather(
         city=city_info.name, lat=city_info.lat, lon=city_info.lon, country=city_info.country
     )
-    aq_task = air_quality_service.get_current_air_quality(
-        city=city_info.name, lat=city_info.lat, lon=city_info.lon
-    )
+    aq_task = air_quality_service.get_current_air_quality(city=city_info.name, lat=city_info.lat, lon=city_info.lon)
 
     weather_data, aq_data = await asyncio.gather(weather_task, aq_task)
 

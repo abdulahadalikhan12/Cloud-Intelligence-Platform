@@ -28,7 +28,9 @@ async def get_nearby_cities(
     """Find cities within a radius of given coordinates."""
     results = geocoding_service.get_nearby_cities(lat, lon, radius_km, limit)
     return {
-        "lat": lat, "lon": lon, "radius_km": radius_km,
+        "lat": lat,
+        "lon": lon,
+        "radius_km": radius_km,
         "cities": [{"city": c.model_dump(), "distance_km": d} for c, d in results],
         "total": len(results),
     }

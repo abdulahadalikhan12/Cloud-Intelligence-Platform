@@ -18,8 +18,13 @@ router = APIRouter(prefix="/api/v1/predict", tags=["Predictions"])
 def predict_aqi_risk(req: PredictionRequest):
     """Classify AQI risk category from environmental features."""
     return ml_service.predict_aqi_risk(
-        req.temperature, req.humidity, req.rain,
-        req.pressure, req.wind_speed, req.month, req.hour,
+        req.temperature,
+        req.humidity,
+        req.rain,
+        req.pressure,
+        req.wind_speed,
+        req.month,
+        req.hour,
     )
 
 
@@ -27,8 +32,13 @@ def predict_aqi_risk(req: PredictionRequest):
 def predict_pollution(req: PredictionRequest):
     """Predict PM2.5 concentration from environmental features."""
     return ml_service.predict_pollution(
-        req.temperature, req.humidity, req.rain,
-        req.pressure, req.wind_speed, req.month, req.hour,
+        req.temperature,
+        req.humidity,
+        req.rain,
+        req.pressure,
+        req.wind_speed,
+        req.month,
+        req.hour,
     )
 
 

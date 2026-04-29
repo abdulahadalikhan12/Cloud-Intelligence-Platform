@@ -14,7 +14,9 @@ class Settings(BaseSettings):
     # App metadata
     APP_NAME: str = "Cloud Intelligence Platform"
     APP_VERSION: str = "2.0.0"
-    APP_DESCRIPTION: str = "Agentic Cloud Intelligence Platform with real-time weather, air quality, and ML-powered insights"
+    APP_DESCRIPTION: str = (
+        "Agentic Cloud Intelligence Platform with real-time weather, air quality, and ML-powered insights"
+    )
     DEBUG: bool = False
 
     # Server
@@ -30,10 +32,10 @@ class Settings(BaseSettings):
     ]
 
     # Cache TTL (seconds)
-    WEATHER_CACHE_TTL: int = 300       # 5 minutes for current weather
-    FORECAST_CACHE_TTL: int = 3600     # 1 hour for forecasts
-    GEOCODING_CACHE_TTL: int = 86400   # 24 hours for geocoding
-    AQ_CACHE_TTL: int = 600            # 10 minutes for air quality
+    WEATHER_CACHE_TTL: int = 300  # 5 minutes for current weather
+    FORECAST_CACHE_TTL: int = 3600  # 1 hour for forecasts
+    GEOCODING_CACHE_TTL: int = 86400  # 24 hours for geocoding
+    AQ_CACHE_TTL: int = 600  # 10 minutes for air quality
 
     # External APIs (all free, no keys required)
     OPEN_METEO_WEATHER_URL: str = "https://api.open-meteo.com/v1/forecast"
