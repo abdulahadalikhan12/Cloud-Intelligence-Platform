@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    container_name: cloud_intelligence_api
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./app:/app/app
+      - ./data:/app/data
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+    restart: unless-stopped

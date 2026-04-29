@@ -1,0 +1,42 @@
+# ── Build artifacts ──
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── Version control ──
+.git/
+.gitignore
+
+# ── Environment ──
+.env
+.venv/
+venv/
+env/
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+
+# ── Testing ──
+tests/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# ── Documentation (not needed in image) ──
+*.md
+!README.md
+LICENSE
+LOVABLE_PROMPT.md
+
+# ── CI/CD ──
+.github/
+
+# ── Misc ──
+.cache*
+*.sqlite
+docker-compose.yml
