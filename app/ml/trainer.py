@@ -7,17 +7,19 @@ Usage: python -m app.ml.trainer
 """
 
 import os
-import httpx
-import pandas as pd
-import numpy as np
-import joblib
 from datetime import datetime, timedelta, timezone
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+
+import httpx
+import joblib
+import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, mean_squared_error, silhouette_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
 from app.ml.preprocessing import clean_data, engineer_features
 
 MODELS_DIR = "app/ml/pretrained"
@@ -144,7 +146,7 @@ def train_all_models(df: pd.DataFrame):
     joblib.dump(scaler_clust, f"{MODELS_DIR}/clustering_scaler.joblib")
 
     pca = PCA(n_components=2)
-    X_pca = pca.fit_transform(X_clust)
+    pca.fit_transform(X_clust)
     joblib.dump(pca, f"{MODELS_DIR}/pca_model.joblib")
 
     kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)

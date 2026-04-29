@@ -3,9 +3,8 @@ Vector search service: FAISS-based semantic search over city intelligence data.
 Uses sentence-transformers for embedding generation.
 """
 
-import json
 import numpy as np
-from pathlib import Path
+
 from app.config import get_settings
 from app.models.schemas import SemanticSearchResult
 

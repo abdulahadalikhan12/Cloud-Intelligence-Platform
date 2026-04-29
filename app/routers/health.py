@@ -1,10 +1,12 @@
 """Health check and system status endpoints."""
 
 import time
+
 from fastapi import APIRouter
+
 from app.config import get_settings
 from app.models.schemas import HealthCheck, SystemStatus
-from app.services import ml_service, vector_service, geocoding_service
+from app.services import geocoding_service, ml_service, vector_service
 
 router = APIRouter()
 settings = get_settings()

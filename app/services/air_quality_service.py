@@ -4,12 +4,18 @@ from Open-Meteo Air Quality API. Includes EPA AQI calculation.
 """
 
 import time
-import httpx
 from datetime import datetime, timezone
+
+import httpx
+
 from app.config import get_settings
 from app.models.schemas import (
-    AirQualityCurrent, AQICategory, AQForecastDay,
-    AirQualityForecast, CityRanking, AQRankings,
+    AirQualityCurrent,
+    AirQualityForecast,
+    AQForecastDay,
+    AQICategory,
+    AQRankings,
+    CityRanking,
 )
 
 settings = get_settings()

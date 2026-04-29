@@ -5,8 +5,9 @@ for a given city. First stage of the agent pipeline.
 
 import asyncio
 from datetime import datetime, timezone
-from app.models.schemas import CityInfo, CityDataPacket
-from app.services import geocoding_service, weather_service, air_quality_service
+
+from app.models.schemas import CityDataPacket
+from app.services import air_quality_service, geocoding_service, weather_service
 
 
 async def ingest_city_data(city_name: str) -> CityDataPacket:

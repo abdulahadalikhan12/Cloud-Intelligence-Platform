@@ -4,12 +4,17 @@ from Open-Meteo APIs. Includes in-memory caching with TTL.
 """
 
 import time
+from datetime import datetime, timedelta, timezone
+
 import httpx
-from datetime import datetime, timezone, timedelta
+
 from app.config import get_settings
 from app.models.schemas import (
-    WeatherCurrent, ForecastDay, WeatherForecast,
-    HistoricalWeather, WeatherHistory,
+    ForecastDay,
+    HistoricalWeather,
+    WeatherCurrent,
+    WeatherForecast,
+    WeatherHistory,
 )
 
 settings = get_settings()

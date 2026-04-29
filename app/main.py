@@ -6,11 +6,13 @@ Agentic cloud intelligence with real-time weather, air quality, and ML-powered i
 import json
 from contextlib import asynccontextmanager
 from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.config import get_settings
+from app.routers import agents, air_quality, cities, health, predictions, weather
 from app.services import ml_service, vector_service
-from app.routers import health, cities, weather, air_quality, predictions, agents
 
 settings = get_settings()
 

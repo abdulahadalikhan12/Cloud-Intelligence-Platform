@@ -1,6 +1,7 @@
 """City search, geocoding, and spatial query endpoints."""
 
 from fastapi import APIRouter, Query
+
 from app.models.schemas import CityInfo, CitySearchResult
 from app.services import geocoding_service
 

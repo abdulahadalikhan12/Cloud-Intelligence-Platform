@@ -1,8 +1,9 @@
 """Air quality API endpoints: current, forecast, rankings."""
 
 from fastapi import APIRouter, HTTPException, Query
+
 from app.models.schemas import AirQualityCurrent, AirQualityForecast, AQRankings
-from app.services import geocoding_service, air_quality_service
+from app.services import air_quality_service, geocoding_service
 
 router = APIRouter(prefix="/api/v1/air-quality", tags=["Air Quality"])
 

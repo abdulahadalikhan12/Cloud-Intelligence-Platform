@@ -4,9 +4,12 @@ from the ingested city data. Second stage of the agent pipeline.
 """
 
 from datetime import datetime, timezone
+
 from app.models.schemas import (
-    CityDataPacket, AnalysisResult, AnalysisInsight,
-    AQIRiskPrediction, PollutionPrediction, ClusterResult, RiskLevel,
+    AnalysisInsight,
+    AnalysisResult,
+    CityDataPacket,
+    RiskLevel,
 )
 from app.services import ml_service
 

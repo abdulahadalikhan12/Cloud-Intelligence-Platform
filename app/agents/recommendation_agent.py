@@ -4,9 +4,13 @@ from the analysis results. Final stage of the agent pipeline.
 """
 
 from datetime import datetime, timezone
+
 from app.models.schemas import (
-    CityDataPacket, AnalysisResult, Recommendation,
-    RecommendationReport, RiskLevel,
+    AnalysisResult,
+    CityDataPacket,
+    Recommendation,
+    RecommendationReport,
+    RiskLevel,
 )
 
 

@@ -1,9 +1,13 @@
 """ML prediction endpoints."""
 
 from fastapi import APIRouter
+
 from app.models.schemas import (
-    PredictionRequest, AQIRiskPrediction,
-    PollutionPrediction, ClusterRequest, ClusterResult,
+    AQIRiskPrediction,
+    ClusterRequest,
+    ClusterResult,
+    PollutionPrediction,
+    PredictionRequest,
 )
 from app.services import ml_service
 

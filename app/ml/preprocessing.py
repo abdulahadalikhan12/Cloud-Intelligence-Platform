@@ -2,8 +2,8 @@
 Data preprocessing and feature engineering for ML training.
 """
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def calculate_aqi_category(pm25: float) -> str:

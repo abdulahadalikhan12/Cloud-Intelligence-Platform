@@ -1,6 +1,7 @@
 """Weather API endpoints: current, forecast, historical."""
 
 from fastapi import APIRouter, HTTPException
+
 from app.models.schemas import WeatherCurrent, WeatherForecast, WeatherHistory
 from app.services import geocoding_service, weather_service
 

@@ -6,9 +6,11 @@ Supports fuzzy search and spatial (nearby) queries.
 
 import json
 import math
-import httpx
-from pathlib import Path
 from difflib import SequenceMatcher
+from pathlib import Path
+
+import httpx
+
 from app.config import get_settings
 from app.models.schemas import CityInfo
 

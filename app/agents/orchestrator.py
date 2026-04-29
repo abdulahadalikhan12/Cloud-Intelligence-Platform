@@ -5,8 +5,9 @@ Handles errors gracefully — if one agent fails, the pipeline degrades but does
 
 import asyncio
 from datetime import datetime, timezone
-from app.models.schemas import IntelligenceReport, CityComparison
-from app.agents import ingestion_agent, analysis_agent, recommendation_agent
+
+from app.agents import analysis_agent, ingestion_agent, recommendation_agent
+from app.models.schemas import CityComparison, IntelligenceReport
 
 
 async def run_city_analysis(city_name: str) -> IntelligenceReport:

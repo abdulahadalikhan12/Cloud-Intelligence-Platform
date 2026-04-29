@@ -3,13 +3,17 @@ ML service: loads pre-trained models and runs inference.
 Models are loaded once at startup and kept in memory.
 """
 
-import os
+from pathlib import Path
+
 import joblib
 import numpy as np
-from pathlib import Path
+
 from app.config import get_settings
 from app.models.schemas import (
-    AQIRiskPrediction, PollutionPrediction, ClusterResult, RiskLevel,
+    AQIRiskPrediction,
+    ClusterResult,
+    PollutionPrediction,
+    RiskLevel,
 )
 
 settings = get_settings()

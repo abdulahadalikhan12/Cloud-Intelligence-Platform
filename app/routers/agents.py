@@ -1,11 +1,14 @@
 """Agent orchestration endpoints: full city analysis, comparison, semantic search."""
 
-from fastapi import APIRouter, HTTPException, Body
-from app.models.schemas import (
-    IntelligenceReport, CityComparison,
-    SemanticSearchQuery, SemanticSearchResponse,
-)
+from fastapi import APIRouter, Body, HTTPException
+
 from app.agents import orchestrator
+from app.models.schemas import (
+    CityComparison,
+    IntelligenceReport,
+    SemanticSearchQuery,
+    SemanticSearchResponse,
+)
 from app.services import vector_service
 
 router = APIRouter(prefix="/api/v1/agents", tags=["Agents"])
