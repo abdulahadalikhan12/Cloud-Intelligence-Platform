@@ -1,3 +1,5 @@
+Live Link: https://cloud-intelligence-platform.abdulahadalikhan12.workers.dev/
+
 ---
 title: Cloud Intelligence Platform
 emoji: 🌍
