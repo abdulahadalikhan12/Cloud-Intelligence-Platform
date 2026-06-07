@@ -1,5 +1,3 @@
-Live Link: https://cloud-intelligence-platform.abdulahadalikhan12.workers.dev/
-
 ---
 title: Cloud Intelligence Platform
 emoji: 🌍
@@ -10,6 +8,8 @@ app_port: 7860
 pinned: true
 license: mit
 ---
+
+**Live site:** https://cloud-intelligence-platform.abdulahadalikhan12.workers.dev/
 
 # 🌍 Cloud Intelligence Platform v2
 
